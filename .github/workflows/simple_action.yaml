@@ -1,0 +1,15 @@
+name: Github marketplace action
+
+on: [push]
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Who to greet
+        id: print-shubh
+        uses: actions/hello-world-javascript-action@d6aa7e948a66683088574f40745ed8221ba41892
+        with:
+          who-to-greet: Shubh
+      - name: Output Time
+        run: echo "${{ steps.print-shubh.outputs.time }}"
