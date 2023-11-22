@@ -1,12 +1,12 @@
 name: Expressions and contexts
 on: [push, pull_request, issues, workflow_dispatch]
 run-name: "Expressions and contexts by @${{ github.actor }}, event: ${{ github.event_name }}" ##here github is the context and the actor and event_name are objects
-jobs:
+jobs:                                                                                          ##this changes the workflow name 
     using-expressions-and-contexts:
         runs-on: ubuntu-latest
         steps:
             - name: Expressions
-              id: Shubh-Expressions
+              id: ShubhExpressions
               run: |
                 echo ${{ "expressions" }}
                 echo ${{ "this is string" }}
@@ -20,7 +20,7 @@ jobs:
             
             - name: Dump contexts
               run: |
-                echo '${{ toJSON(github) }}'
+                echo '${{ toJSON(github) }}'   #here github,job,secrets,steps,runner are all contexts
                 echo '${{ toJSON(job) }}'
                 echo '${{ toJSON(secrets) }}'
                 echo '${{ toJSON(steps) }}'
