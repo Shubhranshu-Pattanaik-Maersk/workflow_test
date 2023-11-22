@@ -14,7 +14,7 @@ jobs:                                                                           
                 echo ${{ null }}
                 echo ${{ true }}
                 echo ${{ 1>2 }}
-                echo ${{ "string" == "String" }}
+                echo ${{ 'string' == 'String' }}
                 echo ${{ true && false }}
                 echo ${{ true || (false && true) }}
             
