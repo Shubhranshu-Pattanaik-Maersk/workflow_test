@@ -22,12 +22,12 @@ on:
           - Option 3
       boolean:
         description: A boolean option
-        required: true
+        required: false
         type: boolean
-      environment:
-        description: "Environment"
-        type: environment
-        required: true
+      ##environment:
+       ## description: "Environment"
+       ## type: environment
+       ## required: true
 
 jobs:
   log-info:
