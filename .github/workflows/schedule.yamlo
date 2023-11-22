@@ -1,0 +1,15 @@
+name: Stale Issues and PRs
+on:
+    schedule:
+        - cron: "0 14 * * *"
+        - cron: "0/5 * * * *"
+
+jobs:
+    stale:
+        runs-on: ubuntu-latest
+        steps:
+           - uses: actions/stale@v8
+             with:
+                stale-issue-message: "This is some message"
+                days-before-stale: 1   #run it at particular time and declare issue or pr stale if its > 1 day old
+                days-before-close: 5   #if its not resolved within 5 days of that then close it
