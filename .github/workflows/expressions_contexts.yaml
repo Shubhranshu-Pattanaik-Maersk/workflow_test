@@ -8,8 +8,8 @@ jobs:                                                                           
             - name: Expressions
               id: ShubhExpressions
               run: |
-                echo ${{ "expressions' }}
-                echo ${{ "this is string" }}
+                echo ${{ 'expressions' }}
+                echo ${{ 'this is string' }}
                 echo ${{ 1 }}
                 echo ${{ null }}
                 echo ${{ true }}
