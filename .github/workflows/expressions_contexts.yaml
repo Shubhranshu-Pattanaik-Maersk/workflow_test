@@ -1,0 +1,28 @@
+name: Expressions and contexts
+on: [push, pull_request, issues, workflow_dispatch]
+run-name: "Expressions and contexts by @${{ github.actor }}, event: ${{ github.event_name }}" ##here github is the context and the actor and event_name are objects
+jobs:
+    using-expressions-and-contexts:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Expressions
+              id: Shubh-Expressions
+              run: |
+                echo ${{ "expressions" }}
+                echo ${{ "this is string" }}
+                echo ${{ 1 }}
+                echo ${{ null }}
+                echo ${{ true }}
+                echo ${{ 1>2 }}
+                echo ${{ "string" == "String" }}
+                echo ${{ true && false }}
+                echo ${{ true || (false && true) }}
+            
+            - name: Dump contexts
+              run: |
+                echo '${{ toJSON(github) }}'
+                echo '${{ toJSON(job) }}'
+                echo '${{ toJSON(secrets) }}'
+                echo '${{ toJSON(steps) }}'
+                echo '${{ toJSON(runner) }}'
+
