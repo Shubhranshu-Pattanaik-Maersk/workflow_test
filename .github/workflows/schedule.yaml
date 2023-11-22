@@ -1,8 +1,8 @@
 name: Stale Issues and PRs
 on:
     schedule:
-        - cron: "0 14 * * *"   (2 o clock daily)
-        - cron: "0/5 * * * *"  (every five minutes)
+        - cron: "0 14 * * *"   #(2 o clock daily)
+        - cron: "0/5 * * * *"  #(every five minutes)
 
 jobs:
     stale:
