@@ -22,7 +22,7 @@ on:
           - Option 3
       boolean:
         description: A boolean option
-        required: false
+        required: true
         type: boolean
       environment:
         description: "Environment"
