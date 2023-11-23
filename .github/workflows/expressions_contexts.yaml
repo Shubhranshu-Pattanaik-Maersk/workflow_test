@@ -4,9 +4,11 @@ run-name: "Expressions and contexts by @${{ github.actor }}, event: ${{ github.e
 jobs:                                                                                          ##this changes the workflow name 
     using-expressions-and-contexts:
         runs-on: ubuntu-latest
+        if: github.event_name == 'push'
         steps:
             - name: Expressions
               id: ShubhExpressions
+            
               run: |
                 echo ${{ 'expressions' }}
                 echo ${{ 'this is string' }}
