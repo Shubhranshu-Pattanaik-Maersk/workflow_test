@@ -1,14 +1,21 @@
 name: Expressions and contexts
 on: [push, pull_request, issues, workflow_dispatch]
-run-name: "Expressions and contexts by @${{ github.actor }}, event: ${{ github.event_name }}" ##here github is the context and the actor and event_name are objects
-jobs:                                                                                          ##this changes the workflow name 
-    using-expressions-and-contexts:
+run-name: "Expressions and contexts by @${{ github.actor }}, event: ${{ github.event_name }}" ##here github is the context and the actor and event_name are objects##this changes the workflow name 
+jobs:                
+    run-on-issues-and-prs:
+        runs-on: ubuntu-latest   ##SAME AS GITHUB.EVENT_NAME == 'PULL_REQUEST'|| GITHUB.EVENT_NAME == 'ISSUES'         
+        if: contains(fromJSON('["issues","pull_request"]'),github.event_name )                                                         
+        steps:            ##CONTAINS FUNCTION gives true WHEN THE SECOND ARG IS one of the options in The choices given in the first argument otherwise it gives false
+            - name: Run only if issue has a bug label
+              if: contains(github.event.issue.labels.*.name, 'bug')
+              run: echo ${{ join(github.event.issue.labels.*.name, ', ') }}
+              ##what this does is it checks if the issue has a name of "bug" and if it does, it displays all the labels of issues separated by , 
+    using-expressions-and-contexts:            
         runs-on: ubuntu-latest
         if: github.event_name == 'push'
         steps:
             - name: Expressions
               id: ShubhExpressions
-            
               run: |
                 echo ${{ 'expressions' }}
                 echo ${{ 'this is string' }}
