@@ -6,11 +6,19 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Step 1
-              run: sleep 20
+              run: sleep 20 
+            - name: Step 2
+              id: step-2
+              run: exit 1
+    ##Exit Failure: Exit Failure is indicated by exit(1) which means the abnormal termination of the program, i.e. some error or interrupt has occurred. 
             - name: Runs on failure
-              if: failure()   
+              if: failure() && steps.step-2.conclusion == 'failure'
+    ##
+              run: echo 'step-2 has failed'
+    
     ##A function that Returns true when any previous step of a job fails. If you have a chain of dependent jobs, failure() returns true if any ancestor job fails.
-              run: echo 'Runs only failure'
+              
+           
             - name: Runs on Success
               if: success()
     ##Returns true when all previous steps have succeeded.
