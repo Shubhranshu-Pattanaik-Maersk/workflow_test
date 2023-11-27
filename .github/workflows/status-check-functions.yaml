@@ -13,7 +13,9 @@ jobs:
     ##Exit Failure: Exit Failure is indicated by exit(1) which means the abnormal termination of the program, i.e. some error or interrupt has occurred. 
             - name: Runs on failure
               if: failure() && steps.step-2.conclusion == 'failure'
-    ##
+    ##You can include extra conditions for a step to run after a failure, but you must still include failure() to override the default status check of success() that is automatically applied to if conditions that don't contain a status check function.
+    ##it means that by deafult for "if" conditions, success() is checked and since its a failure() cause of exit 1 in the previous step, it wont run unless you write 
+    ##failure() && to override the success() condition
               run: echo 'step-2 has failed'
     
     ##A function that Returns true when any previous step of a job fails. If you have a chain of dependent jobs, failure() returns true if any ancestor job fails.
