@@ -1,12 +1,31 @@
 name: Environment Variables
 on: [push]
 
+env:
+    WF_LEVEL_ENV: Available to all jobs
 jobs:
     env-vars-and-context:
         runs-on: ubuntu-latest
+        #if: $GITHUB_REF == 'refs/heads/main' doesnt work as its not processed by gh actions but rather in the runner machine itself 
+        if: github.ref == 'refs/heads/main'   #processed and replaced by actual value in the host by gh actions itself
+        env:
+            JOB_LEVEL_ENV: Available to all steps in the env-vars-and-context job !
         steps:
             - name: LOG ENV VAR
               run: echo $GITHUB_REF
             - name: LOG CONTEXT
               run: echo '${{ github.ref }}'
-        #IN ENV VAR , IT IS PR
+        #IN ENV VAR , IT IS PROCESSED IN THE GITHUB RUNNER MACHINE AND NOT BT GITHUB ACTIONS ON YOUR OWN COMPUTER, WHEREAS THE CONTEXT IS REPLACED BY THE VALUE IT IS REFERRING TO
+        #BEFORE BEING SENT TO THE RUNNER ,MACHINE
+            - name: Log Custom ENV VARS
+              env:
+                STEP_LEVEL_ENV: This value is applicable to this step only
+                #override the wf_level_env in step level
+                WF_LEVEL_ENV: overrideen in step level
+              run: |
+                echo $STEP_LEVEL_ENV
+                echo '${{ env.STEP_LEVEL_ENV }}'
+                echo $JOB_LEVEL_ENV
+                echo '${{ env.JOB_LEVEL_ENV }}'
+                echo $WF_LEVEL_ENV
+                echo '${{ env.WF_LEVEL_ENV }}'
