@@ -17,6 +17,10 @@ jobs:
               run: echo '${{ github.ref }}'
         #IN ENV VAR , IT IS PROCESSED IN THE GITHUB RUNNER MACHINE AND NOT BT GITHUB ACTIONS ON YOUR OWN COMPUTER, WHEREAS THE CONTEXT IS REPLACED BY THE VALUE IT IS REFERRING TO
         #BEFORE BEING SENT TO THE RUNNER ,MACHINE
+            - name: set env var
+              run: |
+                echo "NEW_ENV_VAR=$(date)" >> "$GITHUB_ENV"
+                echo "JOB_LEVEL_ENV=$RANDOM" >> "$GITHUB_ENV"
             - name: Log Custom ENV VARS
               env:
                 STEP_LEVEL_ENV: This value is applicable to this step only
@@ -29,3 +33,5 @@ jobs:
                 echo '${{ env.JOB_LEVEL_ENV }}'
                 echo $WF_LEVEL_ENV
                 echo '${{ env.WF_LEVEL_ENV }}'
+                echo $JOB_LEVEL_ENV
+                echo $NEW_ENV_VAR
