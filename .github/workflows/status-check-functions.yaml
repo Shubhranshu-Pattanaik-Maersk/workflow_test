@@ -6,7 +6,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Step 1
-              run: sleep 20 
+              run: sleep 90
+              timeout-minutes: 1
+        #since the step one will timeout after 60 secs and will thus fail, as sleep is set to 90s and thus step 1 will take more than 60 s i.e 90 s
             - name: Step 2
               id: step-2
               continue-on-error: true
