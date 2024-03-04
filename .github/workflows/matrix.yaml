@@ -3,10 +3,15 @@ on: [push]
 
 jobs:
     node-matrix:
+        continue-on-error: false
+        # if this is false, then if there is any error in a matrix job, the wkflow will fail
         strategy:
             matrix:
                 os: [ubuntu-latest,windows-latest]
                 node-version: [14,15,16] 
+            fail-fast: false
+            #fail-fast works on a matrix job level, i.e if any matrix job fails,then fail-fast:false prevents all in progress jobs from being cancelled
+            #max-parallel: 3 This defines the max no of jobs that can run in parallel
         runs-on: ${{ matrix.os }}
         steps:
             - run: node -v

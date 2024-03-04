@@ -1,0 +1,119 @@
+name: create_release
+
+on:
+  workflow_dispatch:
+    inputs:
+    #   WDP_AKS_NONPROD_CRED:
+    #     required: false
+    #     type: boolean
+    #     default: false
+    #     description: WDP_AKS_NONPROD_CRED
+    #   WDP_AKS_PROD_CRED:
+    #     required: false
+    #     type: boolean
+    #     default: false
+    #     description: WDP_AKS_PROD_CRED
+    #   WDP_CDT_INFRA_CRED:
+    #     required: false
+    #     type: boolean
+    #     default: false
+    #     description: WDP_CDT_INFRA_CRED
+    #   WDP_TEST_INFRA_CRED:
+    #     required: false
+    #     type: boolean
+    #     default: false
+    #     description: WDP_TEST_INFRA_CRED
+    #   WDP_STG_INFRA_CRED:
+    #     required: false
+    #     type: boolean
+    #     default: false
+    #     description: WDP_STG_INFRA_CRED
+    #   WDP_PROD_INFRA_CRED:
+    #     required: false
+    #     type: boolean
+    #     default: false
+    #     description: WDP_PROD_INFRA_CRED
+      REPO_NAME:
+        required: true
+        type: string
+        description: Name of the repo
+
+      TAG_NAME:
+        required: true
+        type: string
+        description: tags
+
+      TARGET_COMMITISH:
+        required: true
+        type: string
+        description: target_commitish
+
+      NAME:
+        required: true
+        type: string
+        description: name of release
+
+      BODY:
+        required: true
+        type: string
+        description: description
+
+      DRAFT:
+        required: true
+        type: string
+        description: draft or not
+
+      PRERELEASE:
+        required: true
+        type: string
+        description: prerelease yay or nay
+
+      GENERATE:
+        required: true
+        type: string
+        description: generate notes
+
+
+        # "tag_name": "v1",
+        # "target_commitish": "master",
+        # "name": "v1.0.0",
+        # "body": "Description of the release",
+        # "draft": false,
+        # "prerelease": false,
+        # "generate_release_notes":false
+
+permissions: read-all
+
+env:
+  GH_REPO: ${{ github.event.inputs.REPO_NAME }}
+#   WDP_AKS_NONPROD_CRED: ${{ secrets.WDP_AKS_NONPROD_CRED }}
+#   WDP_AKS_PROD_CRED: ${{ secrets.WDP_AKS_PROD_CRED }}
+#   WDP_CDT_INFRA_CRED: ${{ secrets.WDP_CDT_INFRA_CRED }}
+#   WDP_TEST_INFRA_CRED: ${{ secrets.WDP_TEST_INFRA_CRED }}
+#   WDP_STG_INFRA_CRED: ${{ secrets.WDP_STG_INFRA_CRED }}
+#   WDP_PROD_INFRA_CRED: ${{ secrets.WDP_PROD_INFRA_CRED }}
+  GITHUB_ACCESS_TOKEN: ${{secrets.PAT}}
+  
+
+
+jobs:
+  update_secret:
+    name: Updating secrets on the repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .github/scripts/Update_github_secret/requirements.txt
+
+      - name: create a release
+        run: |
+          python3 /Users/shubhranshu.pattanaik/workflow_test/.github/scripts/update_release/release.py --repo-list ${{inputs.REPO_NAME}} --tn ${{inputs.TAG_NAME}} --tcs ${{inputs.TARGET_COMMITISH}} --nr ${{inputs.NAME}} --b ${{inputs.BODY}} --d ${{inputs.DRAFT}} --pr ${{inputs.PRERELEASE}} --gn ${{inputs.GENERATE}}
+     
