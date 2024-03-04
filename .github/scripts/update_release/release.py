@@ -8,7 +8,7 @@ import time
 def create_release_task(GITHUB_REPO: str, OWNER: str, TAG_NAME: str, TARGET_COMMITISH: str, NAME_RELEASE: str, BODY: str, DRAFT: str, PRERELEASE: str, GENERATE_NOTES: str ):
     headers = {
         'Accept': 'application/vnd.github+json',
-        'Authorization': f"Bearer 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",
+        'Authorization': f"Bearer {os.getenv('GITHUB_ACCESS_TOKEN')}",
         'X-GitHub-Api-Version': '2022-11-28',
         'Content-Type': 'application/x-www-form-urlencoded',
     }
