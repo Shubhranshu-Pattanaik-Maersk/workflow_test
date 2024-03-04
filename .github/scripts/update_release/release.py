@@ -23,19 +23,19 @@ def create_release_task(GITHUB_REPO: str, OWNER: str, TAG_NAME: str, TARGET_COMM
 
     data = {"tag_name":TAG_NAME,"target_commitish":TARGET_COMMITISH,"name":NAME_RELEASE,"body":BODY,"draft":DRAFT,"prerelease":PRERELEASE,"generate_release_notes":GENERATE_NOTES}
 
-    try:
+    # try:
         response = requests.post(f"https://api.github.com/repos/{OWNER}/workflow_test/releases", headers=headers, data=json.dumps(data))
-        response.raise_for_status()
+    #     response.raise_for_status()
 
-        if response.status_code == 201:
-            logger.info(f"{GITHUB_REPO} was created using {OWNER}")
-        else:
-            # error_message = f"Error in creating {GITHUB_REPO} using {TEMPLATE_REPO}. Response: {response.text}"
-            logger.info(error_message)
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Request error: {str(e)}")
-    except Exception as e:
-        logger.error(f"An unexpected error occurred: {str(e)}") 
+    #     if response.status_code == 201:
+    #         logger.info(f"{GITHUB_REPO} was created using {OWNER}")
+    #     else:
+    #         # error_message = f"Error in creating {GITHUB_REPO} using {TEMPLATE_REPO}. Response: {response.text}"
+    #         logger.info(error_message)
+    # except requests.exceptions.RequestException as e:
+    #     logger.error(f"Request error: {str(e)}")
+    # except Exception as e:
+    #     logger.error(f"An unexpected error occurred: {str(e)}") 
 
 # def enable_branch_protection(GITHUB_REPO: str, OWNER: str):
 #     headers = {
