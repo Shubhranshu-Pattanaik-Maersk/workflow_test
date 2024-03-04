@@ -114,5 +114,5 @@ jobs:
           pip install -r .github/scripts/update_release/requirements.txt
       - name: create a release
         run: |
-          python3 /Users/shubhranshu.pattanaik/workflow_test/.github/scripts/update_release/release.py --repo-list ${{inputs.REPO_NAME}} --tn ${{inputs.TAG_NAME}} --tcs ${{inputs.TARGET_COMMITISH}} --nr ${{inputs.NAME}} --b ${{inputs.BODY}} --d ${{inputs.DRAFT}} --pr ${{inputs.PRERELEASE}} --gn ${{inputs.GENERATE}}
+          python3 .github/scripts/update_release/release.py --repo-list ${{inputs.REPO_NAME}} --tn ${{inputs.TAG_NAME}} --tcs ${{inputs.TARGET_COMMITISH}} --nr ${{inputs.NAME}} --b ${{inputs.BODY}} --d ${{inputs.DRAFT}} --pr ${{inputs.PRERELEASE}} --gn ${{inputs.GENERATE}}
      
