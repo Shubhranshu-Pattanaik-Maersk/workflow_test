@@ -21,7 +21,7 @@ def create_release_task(GITHUB_REPO: str, OWNER: str, TAG_NAME: str, TARGET_COMM
 
     }
 
-data = {"tag_name":TAG_NAME,"target_commitish":TARGET_COMMITISH,"name":NAME_RELEASE,"body":BODY,"draft":DRAFT,"prerelease":PRERELEASE,"generate_release_notes":GENERATE_NOTES}'
+data = {"tag_name":TAG_NAME,"target_commitish":TARGET_COMMITISH,"name":NAME_RELEASE,"body":BODY,"draft":DRAFT,"prerelease":PRERELEASE,"generate_release_notes":GENERATE_NOTES}
 
 response = requests.post('https://api.github.com/repos/OWNER/REPO/releases', headers=headers, data=data)
     try:
