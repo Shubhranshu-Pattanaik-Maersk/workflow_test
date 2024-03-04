@@ -69,7 +69,7 @@ def main():
     parser = argparse.ArgumentParser(description='GitHub Secrets Management Script')
 
 
-    parser.add_argument('--repo-owner', help='GitHub repository owner', default="Maersk-Global")
+    parser.add_argument('--repo-owner', help='GitHub repository owner', default="Shubhranshu-Pattanaik-Maersk")
     # parser.add_argument('--template-owner', help='Template repository owner', default="Maersk-Global")
     # parser.add_argument('--template-repo', help='GitHub template repository name', required=True)
     parser.add_argument('--repo-list', help='List of repositories separated by commas', required=True)
