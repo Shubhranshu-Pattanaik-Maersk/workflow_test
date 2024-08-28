@@ -10,7 +10,7 @@ class TestIntegrationWithDatabase(unittest.TestCase):
             dbname="test_db",
             user="postgres",
             password="postgres",
-            host="localhost",
+            host="postgres",  # Use the service name as the host
             port="5432"
         )
         self.cursor = self.connection.cursor()
@@ -20,7 +20,6 @@ class TestIntegrationWithDatabase(unittest.TestCase):
         self.connection.close()
 
     def test_database_insertion(self):
-        # Example of an integration test involving the database
         self.cursor.execute("CREATE TABLE IF NOT EXISTS test_table (id serial PRIMARY KEY, name VARCHAR(50));")
         self.cursor.execute("INSERT INTO test_table (name) VALUES ('Test Name');")
         self.connection.commit()

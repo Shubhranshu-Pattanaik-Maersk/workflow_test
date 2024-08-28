@@ -1,16 +1,12 @@
 name: Run Integration Tests
 
-# Triggers the workflow on push or pull request events
 on: [push, pull_request]
 
 jobs:
   integration-test:
-
-    # Specifies the environment in which the workflow should run
     runs-on: ubuntu-latest
 
     services:
-      # Define any services your tests need, such as databases
       postgres:
         image: postgres:13
         env:
@@ -26,30 +22,26 @@ jobs:
           --health-retries=5
 
     steps:
-    # Checks out your repository code
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Sets up Python environment; specify the version of Python you are using
     - name: Set up Python 3.8
       uses: actions/setup-python@v3
       with:
         python-version: 3.8
 
-    # Installs dependencies listed in your requirements.txt file (if you have one)
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    # Wait for the Postgres service to be ready before running tests
-    - name: Wait for Postgres
+    # Wait for Postgres to be ready before running tests
+    - name: Wait for Postgres to be ready
       run: |
-        until pg_isready -h localhost -p 5432; do
+        until pg_isready -h postgres -p 5432; do
           echo "Waiting for Postgres to be ready..."
           sleep 2
         done
 
-    # Runs the integration tests using unittest
     - name: Run integration tests
       run: python -m unittest discover -s integration_tests
