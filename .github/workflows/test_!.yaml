@@ -20,4 +20,4 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest
     - name: Run tests
-      run: ./Users/shubhranshu.pattanaik/workflow_test/.github/test_calculator.py
+      run: pytest
